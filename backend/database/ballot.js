@@ -4,6 +4,14 @@ const db = require("./db");
 const Ballot = db.define(
   "ballot",
   {
+    userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: "users",
+            key: "id",
+        },
+    },
     guestId: {
       type: DataTypes.STRING,
       allowNull: true,
