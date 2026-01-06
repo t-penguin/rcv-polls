@@ -26,8 +26,8 @@ const setupPartialIndexes = async () => {
     if (!existingIndexes.includes("unique_poll_user_partial")) {
       await queryInterface.sequelize.query(`
         CREATE UNIQUE INDEX unique_poll_user_partial 
-        ON ballots (poll_id, user_id) 
-        WHERE user_id IS NOT NULL
+        ON ballots ("pollId", "userId") 
+        WHERE "userId" IS NOT NULL
       `);
       console.log("✅ Created partial unique index: unique_poll_user_partial");
     }
@@ -36,8 +36,8 @@ const setupPartialIndexes = async () => {
     if (!existingIndexes.includes("unique_poll_guest_partial")) {
       await queryInterface.sequelize.query(`
         CREATE UNIQUE INDEX unique_poll_guest_partial 
-        ON ballots (poll_id, guest_id) 
-        WHERE guest_id IS NOT NULL
+        ON ballots ("pollId", "guestId") 
+        WHERE "guestId" IS NOT NULL
       `);
       console.log("✅ Created partial unique index: unique_poll_guest_partial");
     }
