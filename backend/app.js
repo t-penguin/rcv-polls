@@ -8,6 +8,7 @@ const app = express();
 const apiRouter = require("./api");
 const { router: authRouter } = require("./auth");
 const { db } = require("./database");
+const setupPartialIndexes = require("./database/setup-indexes");
 const cors = require("cors");
 const initSocketServer = require("./socket-server");
 const PORT = process.env.PORT || 8080;
@@ -41,6 +42,10 @@ const runApp = async () => {
   try {
     await db.sync();
     console.log("✅ Connected to the database");
+    
+    // Set up partial unique indexes for ballots
+    await setupPartialIndexes();
+    
     const server = app.listen(PORT, () => {
       console.log(`🚀 Server is running on port ${PORT}`);
     });
